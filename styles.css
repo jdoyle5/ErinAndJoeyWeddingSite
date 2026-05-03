@@ -284,7 +284,7 @@ body::before {
 @keyframes heroFadeUp {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -349,14 +349,14 @@ body::before {
   color: var(--taupe-light);
   margin: 0 0 var(--space-lg);
   opacity: 0;
-  animation: heroFadeUp 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
+  animation: heroFadeUp 2.2s cubic-bezier(0.33, 0.86, 0.32, 1) 0.2s forwards;
 }
 
 .hero-names {
   margin: 0 0 var(--space-md);
   line-height: 1.2;
   opacity: 0;
-  animation: heroFadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
+  animation: heroFadeUp 2.45s cubic-bezier(0.33, 0.86, 0.32, 1) 0.65s forwards;
 }
 
 /* Logo sized down; filled with hero body color (matches .hero-date) */
@@ -384,7 +384,7 @@ body::before {
   margin: 0 0 var(--space-sm);
   line-height: 1.2;
   opacity: 0;
-  animation: heroFadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+  animation: heroFadeUp 2.45s cubic-bezier(0.33, 0.86, 0.32, 1) 1.1s forwards;
 }
 
 .hero-location {
@@ -397,7 +397,7 @@ body::before {
   margin: 0;
   line-height: 1.6;
   opacity: 0;
-  animation: heroFadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.78s forwards;
+  animation: heroFadeUp 2.2s cubic-bezier(0.33, 0.86, 0.32, 1) 1.5s forwards;
 }
 
 .hero-scroll {
@@ -409,8 +409,8 @@ body::before {
   font-size: 1.25rem;
   opacity: 0;
   animation:
-    heroFadeIn 0.95s ease 1s forwards,
-    bounce 2s ease-in-out 2.05s infinite;
+    heroFadeIn 1.5s ease 2.05s forwards,
+    bounce 2.2s ease-in-out 3.85s infinite;
 }
 
 @keyframes bounce {
