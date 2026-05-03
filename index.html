@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>We're Getting Married</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Great+Vibes&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <!-- Optional: Baskerville Pro from Adobe Fonts — add kit link, then it wins in --font-story-body -->
+  <!-- <link rel="stylesheet" href="https://use.typekit.net/xxxxxxx.css"> -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Key must match SITE_ACCESS_STORAGE_KEY in script.js (avoids a flash of the gate for returning guests) -->
+  <script>
+    try {
+      if (localStorage.getItem('erinjoey_wedding_site_access_v1') === '1') {
+        document.documentElement.classList.add('site-access-granted');
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body class="is-site-gated">
+  <div
+    id="site-gate"
+    class="site-gate"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="site-gate-title"
+  >
+    <div class="site-gate-inner">
+      <p class="site-gate-eyebrow">Erin &amp; Joey</p>
+      <h1 id="site-gate-title" class="site-gate-title">Site password</h1>
+      <p class="site-gate-hint">Enter the password you received with your save the date.</p>
+      <form id="site-gate-form" class="site-gate-form">
+        <label class="visually-hidden" for="site-gate-password">Password</label>
+        <input
+          id="site-gate-password"
+          class="site-gate-input"
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          required
+          aria-describedby="site-gate-error"
+        >
+        <button type="submit" class="site-gate-submit">Continue</button>
+      </form>
+      <p id="site-gate-error" class="site-gate-error" role="alert" hidden></p>
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">Erin & Joey</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#stay">Book Your Stay</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="hero-bg">
+      <video class="hero-bg-media" autoplay muted loop playsinline aria-hidden="true">
+        <source src="assets/hero-bg.mov" type="video/mp4">
+        <source src="assets/hero-bg.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-content">
+      <p class="hero-subtitle">Save the Date</p>
+      <h1 class="hero-names">
+        <span class="hero-logo" role="img" aria-label="Erin and Joey"></span>
+      </h1>
+      <p class="hero-date">January 9, 2027</p>
+      <p class="hero-location">Esperanza Resort<br>Cabo San Lucas, Mexico</p>
+    </div>
+    <a href="#story" class="hero-scroll" aria-label="Scroll to story">↓</a>
+  </header>
+
+  <main>
+    <section id="story" class="section section-story">
+      <div class="container">
+        <h2 class="section-title">Our Story</h2>
+        <div class="story-content">
+          <div class="story-body">
+            <p>Erin and Joey met on September 9, 2021, at Urth Caffé in Beverly Hills. What was supposed to be a quick, casual Hinge date somehow turned into three hours of nonstop conversation and banter. Erin fell for Joey’s witty, sarcastic humor (and dreamy blue eyes), and Joey was equally impressed that Erin could keep up—and keep it coming (or maybe it was her long hair).</p>
+            <p>Over the next few dates, it became clear how much they had in common—from both attending K–12 schools with built-in lifelong friend groups, to their close relationships with family, their shared love of food, and their overlapping worlds in tech as a software engineer and a tech publicist. They also discovered a mutual love of video games—and, more importantly, a strong competitive streak—with early dates featuring mini golf, bowling at Lucky Strike, and trips to Dave &amp; Buster’s.</p>
+            <p>In January, during a trip to Las Vegas, Joey made things official—asking Erin to be his girlfriend. About 24 hours later, Erin surprised him again… by giving him COVID. The two found themselves stuck in a hotel room together for a week—an unexpected test that somehow turned into one of their favorite memories and proved early on that they really do like each other.</p>
+            <p>Over the years, they’ve explored, eaten, and photographed their way around the world side by side—traveling to France, Italy, Mexico, the UK (go Liverpool!), Japan, and across the U.S., including many trips to Hawaii and Las Vegas (the “9th island”). Joey is usually behind the camera, while Erin can often be found nearby… at the blackjack table.</p>
+            <p>In October 2023, they moved in together and have loved building their life together—especially thanks to the convenient grocery store in their building. Along the way, they also helped raise Erin’s parents’ puppy, Mia, which was equal parts chaos and cuteness—and excellent practice.</p>
+            <p>In May 2025, Joey surprised Erin with a dream proposal at the Grand Wailea Resort in Maui—a place that has always held deep meaning for Erin from years of trips with family and friends growing up. It was perfectly planned, completely unexpected, and a moment they’ll never forget.</p>
+            <p>Born and raised on Oahu and in Orange County, Erin and Joey both grew up by the ocean. Joey, a former surf instructor, loves being active in the water, while Erin prefers to supervise from a comfortable spot on the beach—making a coastal wedding the perfect compromise.</p>
+            <p>While they fell in love with the Amalfi Coast during their 2022 trip and always imagined a coastal wedding, they wanted a location that would be easier for their family and friends to travel to. When Erin came across Esperanza’s iconic oceanfront setting, they immediately knew it was the one. Although it was initially booked for 2026, a visit to Cabo confirmed that nothing compared—and they decided it was worth the wait.</p>
+            <p>They are so excited to celebrate this next chapter together, surrounded by the people they love most.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stay" class="section section-stay">
+      <div class="container">
+        <h2 class="section-title">Book Your Stay</h2>
+        <p class="stay-intro">Our wedding will be at Esperanza, an Auberge Resorts Collection property in Los Cabos. Reserve your room directly with the resort—you’ll be steps from the celebration and can enjoy The Spa at Esperanza and the rest of the property at your own pace.</p>
+        <p class="stay-cta-wrap">
+          <a class="stay-cta" href="https://aubergeresorts.com/esperanza/" target="_blank" rel="noopener noreferrer">Book Esperanza Resort &amp; Spa</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">We can’t wait to celebrate with you.</p>
+      <p class="footer-names">Erin & Joey</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

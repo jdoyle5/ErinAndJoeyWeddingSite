@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <!-- Ocean horizon lines -->
+  <path d="M0 140 Q150 138 300 140 T600 140" opacity="0.4"/>
+  <path d="M0 150 Q150 148 300 150 T600 150" opacity="0.35"/>
+  <path d="M0 160 Q150 158 300 160 T600 160" opacity="0.3"/>
+  <path d="M0 170 Q150 168 300 170 T600 170" opacity="0.25"/>
+  <!-- Cliff / headland silhouette -->
+  <path d="M0 200 L0 120 Q80 100 160 110 L220 95 Q280 85 340 100 L400 88 Q480 75 560 95 L600 90 L600 200 Z" opacity="0.5"/>
+  <!-- Soft cliff layers -->
+  <path d="M0 200 L0 135 Q100 125 200 135 L280 125 Q380 115 500 130 L600 125 L600 200 Z" opacity="0.25"/>
+  <!-- Simple palm / tree suggestion left -->
+  <path d="M120 115 L115 85 M120 115 L125 88 M120 85 Q118 70 120 55" opacity="0.4"/>
+  <!-- Right side structure (gazebo suggestion) -->
+  <circle cx="480" cy="105" r="18" opacity="0.35"/>
+  <path d="M462 105 Q480 88 498 105 Q480 122 462 105" opacity="0.3"/>
+</svg>

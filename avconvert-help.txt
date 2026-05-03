@@ -1,0 +1,62 @@
+usage: avconvert [--param <value> ...]
+
+    Required parameters:
+        --preset (or -p)           <presetName>  Use --help to list all available preset names.
+        --source (or -s)           <source media file>
+        --output (or -o)           <output movie file>
+
+    Optional parameters:
+        --disableFastStart         Disable fast-start movie creation.  Reduces disk accesses if fast-start is not required.
+        --disableMetadataFilter    Disable the metadata filter.  Use with caution.  This will allow privacy sensitive source metadata to be preserved in the output file.  Refer to the man page for more details.
+        --disableSpatialConversion Disable the automatic conversion of certain spatial, spherical, and/or immersive formats
+        --duration <duration>      Trim the output movie to duration seconds (decimal allowed).  Default is end of file.
+        --help (or -h)             Print command usage and list available preset names.
+        --multiPass                Perform a higher quality multi-pass encode in the conversion, if supported by the codec.
+        --progress (or -prog)      Display progress information.
+        --replace                  Overwrite the output file, if it already exists.
+        --sourceProjection <Equirectangular|HalfEquirectangular>
+                                   Specify the projection of the source, overriding any metadata.
+        --sourceViewPacking <SideBySide|OverUnder>
+                                   Specify the view packing of the source, overriding any metadata.
+        --start <startTime>        Skip the first startTime seconds (decimal allowed) of the source movie.  Default is beginning of file.
+        --useAlternateLensCalibration <media file>
+                                   Use the lens calibration from another media file to signal the parametric immersive projection for the source file.
+        --verbose (or -v)          Print additional information about the conversion.
+
+    Sample command lines:
+        avconvert --source /tmp/myTestMovie.mov --preset PresetHighestQuality --output /tmp/testOut.mov --replace
+        avconvert -s /tmp/myTestMovie.m4v -p Preset640x480 -o /tmp/testOut.m4v --verbose --progress
+        avconvert --source /tmp/myTestMovie.mov -o /tmp/testOut.m4v -p PresetHEVCHighestQuality --start 2.5 --duration 10 --disableMetadataFilter
+
+    Supported presets:
+        Preset640x480
+        Preset960x540
+        Preset1280x720
+        Preset1920x1080
+        Preset3840x2160
+        PresetAppleM4A
+        PresetAppleM4V480pSD
+        PresetAppleM4V720pHD
+        PresetAppleM4V1080pHD
+        PresetAppleM4VAppleTV
+        PresetAppleM4VCellular
+        PresetAppleM4ViPod
+        PresetAppleM4VWiFi
+        PresetAppleProRes422LPCM
+        PresetAppleProRes4444LPCM
+        PresetHEVC1920x1080
+        PresetHEVC1920x1080WithAlpha
+        PresetHEVC3840x2160
+        PresetHEVC3840x2160WithAlpha
+        PresetHEVC4320x2160
+        PresetHEVC7680x4320
+        PresetHEVCHighestQuality
+        PresetHEVCHighestQualityWithAlpha
+        PresetHighestQuality
+        PresetLowQuality
+        PresetMediumQuality
+        PresetMVHEVC960x960
+        PresetMVHEVC1440x1440
+        PresetMVHEVC4320x4320
+        PresetMVHEVC7680x7680
+        PresetPassthrough
