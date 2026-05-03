@@ -340,6 +340,16 @@ body::before {
   max-width: 640px;
 }
 
+/* Keep hero text invisible until video has a frame (see initHeroAwaitVideo in script.js) */
+.hero:not(.hero--media-ready) .hero-subtitle,
+.hero:not(.hero--media-ready) .hero-names,
+.hero:not(.hero--media-ready) .hero-date,
+.hero:not(.hero--media-ready) .hero-location,
+.hero:not(.hero--media-ready) .hero-scroll {
+  animation: none !important;
+  opacity: 0;
+}
+
 .hero-subtitle {
   font-family: var(--font-sans);
   font-size: 0.7rem;
@@ -348,6 +358,9 @@ body::before {
   text-transform: uppercase;
   color: var(--taupe-light);
   margin: 0 0 var(--space-lg);
+}
+
+.hero.hero--media-ready .hero-subtitle {
   opacity: 0;
   animation: heroFadeUp 2.2s cubic-bezier(0.33, 0.86, 0.32, 1) 0.2s forwards;
 }
@@ -355,6 +368,9 @@ body::before {
 .hero-names {
   margin: 0 0 var(--space-md);
   line-height: 1.2;
+}
+
+.hero.hero--media-ready .hero-names {
   opacity: 0;
   animation: heroFadeUp 2.45s cubic-bezier(0.33, 0.86, 0.32, 1) 0.65s forwards;
 }
@@ -383,6 +399,9 @@ body::before {
   color: var(--taupe);
   margin: 0 0 var(--space-sm);
   line-height: 1.2;
+}
+
+.hero.hero--media-ready .hero-date {
   opacity: 0;
   animation: heroFadeUp 2.45s cubic-bezier(0.33, 0.86, 0.32, 1) 1.1s forwards;
 }
@@ -396,6 +415,9 @@ body::before {
   color: var(--taupe-light);
   margin: 0;
   line-height: 1.6;
+}
+
+.hero.hero--media-ready .hero-location {
   opacity: 0;
   animation: heroFadeUp 2.2s cubic-bezier(0.33, 0.86, 0.32, 1) 1.5s forwards;
 }
@@ -407,6 +429,9 @@ body::before {
   color: var(--taupe-soft);
   text-decoration: none;
   font-size: 1.25rem;
+}
+
+.hero.hero--media-ready .hero-scroll {
   opacity: 0;
   animation:
     heroFadeIn 1.5s ease 2.05s forwards,

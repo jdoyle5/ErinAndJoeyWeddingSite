@@ -159,3 +159,48 @@ if (!prefersReducedMotion.matches) {
     });
   }
 }
+
+// Hero: start title/logo fades only after background video has a frame (avoids text before video)
+(function initHeroAwaitVideo() {
+  const hero = document.querySelector('.hero');
+  const video = document.querySelector('.hero-bg-media');
+  if (!hero) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    hero.classList.add('hero--media-ready');
+    return;
+  }
+
+  if (!(video instanceof HTMLVideoElement)) {
+    hero.classList.add('hero--media-ready');
+    return;
+  }
+
+  const reveal = () => hero.classList.add('hero--media-ready');
+  if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+    reveal();
+    return;
+  }
+
+  const fallbackMs = 4500;
+  const timer = window.setTimeout(reveal, fallbackMs);
+  let settled = false;
+
+  function settle() {
+    if (settled) return;
+    settled = true;
+    window.clearTimeout(timer);
+    video.removeEventListener('loadeddata', settle);
+    video.removeEventListener('canplay', settle);
+    video.removeEventListener('error', onVideoError);
+    reveal();
+  }
+
+  function onVideoError() {
+    settle();
+  }
+
+  video.addEventListener('loadeddata', settle);
+  video.addEventListener('canplay', settle);
+  video.addEventListener('error', onVideoError, { once: true });
+})();
