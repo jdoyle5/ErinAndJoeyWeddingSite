@@ -37,21 +37,25 @@
       <span class="site-gate-logo" role="img" aria-label="Erin and Joey"></span>
       <h1 id="site-gate-title" class="site-gate-title">To gain access, please enter our wedding date.</h1>
       <form id="site-gate-form" class="site-gate-form">
-        <label class="visually-hidden" for="site-gate-password">Wedding date (MM/DD/YYYY)</label>
-        <input
-          id="site-gate-password"
-          class="site-gate-input site-gate-input--date"
-          type="text"
-          name="wedding-date"
-          inputmode="numeric"
-          autocomplete="off"
-          autocorrect="off"
-          spellcheck="false"
-          maxlength="10"
-          placeholder="05/17/2019"
-          required
+        <label class="visually-hidden" for="site-gate-digit-0">Wedding date (eight digits: month, day, year)</label>
+        <div
+          class="site-gate-date"
+          role="group"
           aria-describedby="site-gate-error"
         >
+          <div class="site-gate-date-row">
+            <input id="site-gate-digit-0" class="site-gate-digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Month, first digit">
+            <input id="site-gate-digit-1" class="site-gate-digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Month, second digit">
+            <span class="site-gate-slash" aria-hidden="true">/</span>
+            <input id="site-gate-digit-2" class="site-gate-digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Day, first digit">
+            <input id="site-gate-digit-3" class="site-gate-digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Day, second digit">
+            <span class="site-gate-slash" aria-hidden="true">/</span>
+            <input id="site-gate-digit-4" class="site-gate-digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Year, first digit">
+            <input id="site-gate-digit-5" class="site-gate-digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Year, second digit">
+            <input id="site-gate-digit-6" class="site-gate-digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Year, third digit">
+            <input id="site-gate-digit-7" class="site-gate-digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Year, fourth digit">
+          </div>
+        </div>
         <button type="submit" class="site-gate-submit">Continue</button>
       </form>
       <p id="site-gate-error" class="site-gate-error" role="alert" hidden></p>
@@ -97,12 +101,25 @@
       </h1>
       <p class="hero-date">January 9, 2027</p>
     </div>
-    <a href="#welcome" class="hero-scroll" aria-label="Scroll to welcome message">↓</a>
+    <a href="#countdown" class="hero-scroll" aria-label="Scroll to countdown">↓</a>
   </header>
 
   <main>
-    <div class="intro-countdown-stage">
-      <section id="welcome" class="section section-intro">
+    <section id="countdown" class="section section-countdown" aria-label="Wedding countdown">
+      <div class="container">
+        <div class="countdown-panel countdown-reveal" aria-label="Countdown to wedding day">
+          <p class="countdown-values" id="wedding-countdown" aria-live="polite">
+            <span><strong data-countdown-days>--</strong> Days</span>
+            <span><strong data-countdown-hours>--</strong> Hours</span>
+            <span><strong data-countdown-minutes>--</strong> Minutes</span>
+            <span><strong data-countdown-seconds>--</strong> Seconds</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="welcome" class="section section-welcome intro-countdown-stage">
+      <div class="welcome-inner">
         <div class="container">
           <h2 class="intro-heading">We’re getting married!</h2>
           <p class="intro-body">
@@ -113,22 +130,8 @@
             Erin &amp; Joey
           </p>
         </div>
-      </section>
-
-      <section id="countdown" class="section section-countdown">
-        <div class="container">
-          <div class="countdown-panel countdown-reveal" aria-label="Countdown to wedding day">
-            <p class="countdown-values" id="wedding-countdown" aria-live="polite">
-              <span><strong data-countdown-days>--</strong> Days</span>
-              <span><strong data-countdown-hours>--</strong> Hours</span>
-              <span><strong data-countdown-minutes>--</strong> Minutes</span>
-              <span><strong data-countdown-seconds>--</strong> Seconds</span>
-            </p>
-            <p class="countdown-note">Until We Say I Do</p>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
     <section id="story" class="section section-story" aria-labelledby="story-heading">
       <h2 id="story-heading" class="section-title story-section-title">Our Story</h2>
@@ -146,15 +149,18 @@
         </div>
         <div class="story-text-panel">
           <div class="story-text-scroll story-body">
-            <p>Erin and Joey met on September 9, 2021, at Urth Caffé in Beverly Hills. What was supposed to be a quick, casual Hinge date somehow turned into three hours of nonstop conversation and banter. Erin fell for Joey’s witty, sarcastic humor (and dreamy blue eyes), and Joey was equally impressed that Erin could keep up—and keep it coming (or maybe it was her long hair).</p>
-            <p>Over the next few dates, it became clear how much they had in common—from both attending K–12 schools with built-in lifelong friend groups, to their close relationships with family, their shared love of food, and their overlapping worlds in tech as a software engineer and a tech publicist. They also discovered a mutual love of video games—and, more importantly, a strong competitive streak—with early dates featuring mini golf, bowling at Lucky Strike, and trips to Dave &amp; Buster’s.</p>
-            <p>In January, during a trip to Las Vegas, Joey made things official—asking Erin to be his girlfriend. About 24 hours later, Erin surprised him again… by giving him COVID. The two found themselves stuck in a hotel room together for a week—an unexpected test that somehow turned into one of their favorite memories and proved early on that they really do like each other.</p>
-            <p>Over the years, they’ve explored, eaten, and photographed their way around the world side by side—traveling to France, Italy, Mexico, the UK (go Liverpool!), Japan, and across the U.S., including many trips to Hawaii and Las Vegas (the “9th island”). Joey is usually behind the camera, while Erin can often be found nearby… at the blackjack table.</p>
-            <p>In October 2023, they moved in together and have loved building their life together—especially thanks to the convenient grocery store in their building. Along the way, they also helped raise Erin’s parents’ puppy, Mia, which was equal parts chaos and cuteness—and excellent practice.</p>
-            <p>In May 2025, Joey surprised Erin with a dream proposal at the Grand Wailea Resort in Maui—a place that has always held deep meaning for Erin from years of trips with family and friends growing up. It was perfectly planned, completely unexpected, and a moment they’ll never forget.</p>
-            <p>Born and raised on Oahu and in Orange County, Erin and Joey both grew up by the ocean. Joey, a former surf instructor, loves being active in the water, while Erin prefers to supervise from a comfortable spot on the beach—making a coastal wedding the perfect compromise.</p>
-            <p>While they fell in love with the Amalfi Coast during their 2022 trip and always imagined a coastal wedding, they wanted a location that would be easier for their family and friends to travel to. When Erin came across Esperanza’s iconic oceanfront setting, they immediately knew it was the one. Although it was initially booked for 2026, a visit to Cabo confirmed that nothing compared—and they decided it was worth the wait.</p>
+            <p>Erin and Joey met on September 9, 2021, at Urth Caff&eacute; in Beverly Hills. What was meant to be a quick, casual Hinge date turned into three hours of nonstop conversation and banter. Erin fell for Joey&rsquo;s witty, sarcastic humor (and striking blue eyes), and Joey was equally impressed that Erin could dish it right back (or maybe it was her long hair).</p>
+            <p>Over the next few dates, it became clear how much they had in common&mdash;from both attending K&ndash;12 schools with built-in lifelong friend groups, to their close relationships with family, their shared love of food, and their overlapping worlds in tech as a software engineer and a tech publicist. They also discovered a mutual love of video games&mdash;and, more importantly, a strong competitive streak&mdash;with early dates featuring mini golf, bowling at Lucky Strike, and trips to Dave &amp; Buster&rsquo;s.</p>
+            <p>In January 2022, during a trip to Las Vegas, Joey made things official&mdash;asking Erin to be his girlfriend. About 24 hours later, Erin surprised him again&hellip; by giving him COVID. The two found themselves stuck in a hotel room together for a week&mdash;an unexpected test that somehow turned into one of their favorite memories and proved early on that they really do like each other.</p>
+            <p>Over the years, they&rsquo;ve explored, eaten, and photographed their way around the world side by side&mdash;traveling to France, Italy, Mexico, the UK (go Liverpool!), Japan, and across the U.S., including many trips to Hawaii and Las Vegas (the &ldquo;9th island&rdquo;). Joey is usually behind the camera, while Erin can often be found nearby&hellip; at the blackjack table.</p>
+            <p>In October 2023, they moved in together and have enjoyed building their lives at home&mdash;especially thanks to the convenient grocery store in their building. Along the way, they also helped raise Erin&rsquo;s parents&rsquo; puppy, Mia, which was equal parts chaos and cuteness&mdash;and excellent practice.</p>
+            <p>In May 2025, Joey surprised Erin with a dream proposal at the Grand Wailea Resort on Maui&mdash;a place that has always held deep sentimental meaning for Erin, from years of trips with family and friends growing up. It was perfectly planned, completely unexpected, and a moment they&rsquo;ll never forget.</p>
+            <p>Born and raised on Oahu and in Orange County, Erin and Joey both grew up by the ocean. Joey, a former surf instructor, loves being active in the water, while Erin prefers to supervise from a comfortable spot on the beach&mdash;making a coastal wedding the perfect compromise.</p>
+            <p>While they fell in love with the Amalfi Coast during their 2022 trip and always imagined a coastal wedding, they wanted a location that would be easier for their family and friends to travel to. When Erin came across Esperanza, they were immediately drawn to its iconic oceanfront setting, but their preferred date wasn&rsquo;t available in 2026. After visiting Cabo last year and touring other properties, it became clear that nothing compared&mdash;and they knew it was worth the wait.</p>
             <p>They are so excited to celebrate this next chapter together, surrounded by the people they love most.</p>
+          </div>
+          <div class="story-scroll-affordance" aria-hidden="true">
+            <span class="story-scroll-affordance-cue">Scroll for more</span>
           </div>
         </div>
       </div>
@@ -177,7 +183,7 @@
             </p>
             <p class="travel-callout">Our room block rate will only be available while rooms last.</p>
             <p class="travel-cta-line">
-              <a class="travel-cta-link" href="https://aubergeresorts.com/esperanza/" target="_blank" rel="noopener noreferrer">Reserve your room</a>
+              <a class="travel-cta-link" href="https://be.synxis.com/?adult=2&arrive=2027-01-07&chain=16237&child=0&currency=USD&depart=2027-01-10&group=ERJO010827&hotel=60895&level=hotel&locale=en-US&productcurrency=USD&rooms=1" target="_blank" rel="noopener noreferrer">Reserve your room</a>
             </p>
             <p class="travel-policies-intro">Please note the following resort policies:</p>
             <ul class="travel-list">
@@ -204,8 +210,21 @@
         <div class="travel-reveal travel-group">
           <h3 class="travel-subheading">Transportation</h3>
           <div class="travel-prose">
-            <p>Ground transportation details will be shared closer to the wedding weekend.</p>
-            <p>If you are staying off property, we recommend arranging airport transportation in advance.</p>
+            <p>
+              For a seamless arrival and departure experience, we&rsquo;re pleased to offer our guests 10% off private airport transportation through VIVO Luxury Services.
+            </p>
+            <p>
+              To reserve your transfer, please visit
+              <a href="https://www.vivolx.com/" target="_blank" rel="noopener noreferrer">www.vivolx.com</a>
+              and enter the code <strong>erinandjoseph</strong> at checkout.
+            </p>
+            <p>
+              Guests are welcome to share transportation arrangements; however, one guest must complete and submit the reservation/payment on behalf of the group. When booking, please include the latest arriving flight information to ensure proper coordination.
+            </p>
+            <p>
+              For any questions or assistance with your reservation, please contact
+              <a href="mailto:reservations@vivolx.com">reservations@vivolx.com</a>.
+            </p>
           </div>
         </div>
       </div>

@@ -16,6 +16,8 @@
   --font-sans: var(--font-body);
   --font-story-body: var(--font-body);
   --section-copy-size: clamp(1.22rem, 1.05rem + 0.42vw, 1.38rem);
+  /* Matches “We’re getting married!” — shared by hero date + section H2s */
+  --font-display-heading-size: clamp(2.05rem, 5.5vw + 1.35rem, 4.75rem);
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
@@ -92,9 +94,9 @@ html.site-access-granted .site-gate,
 /* Gate logo — same asset as nav / hero, sized for the dialog */
 .site-gate-logo {
   display: block;
-  width: min(132px, 38vw);
-  height: clamp(22px, 6.5vw, 32px);
-  margin: 0 auto var(--space-sm);
+  width: min(300px, 78vw);
+  height: clamp(48px, 20vw, 104px);
+  margin: 0 auto var(--space-md);
   background-color: var(--taupe);
   mask-image: url("assets/erin-joey-logo.png");
   mask-repeat: no-repeat;
@@ -108,9 +110,9 @@ html.site-access-granted .site-gate,
 
 .site-gate-title {
   font-family: var(--font-body);
-  font-size: clamp(1.22rem, 2.35vw + 0.55rem, 1.68rem);
+  font-size: clamp(0.82rem, 1.1vw + 0.32rem, 1.05rem);
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   color: var(--taupe);
   line-height: 1.45;
   margin: 0 0 var(--space-lg);
@@ -122,32 +124,57 @@ html.site-access-granted .site-gate,
   gap: var(--space-sm);
 }
 
-.site-gate-input {
+.site-gate-date {
   width: 100%;
-  padding: 0.85rem 1.1rem;
+}
+
+.site-gate-date-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem 0.2rem;
+}
+
+.site-gate-digit {
+  box-sizing: border-box;
+  width: 2.15rem;
+  height: 2.55rem;
+  padding: 0;
   font-family: var(--font-sans);
   font-size: 1.05rem;
   font-weight: 400;
+  text-align: center;
   color: var(--ink);
   background: var(--white);
   border: 1px solid rgba(139, 133, 126, 0.35);
   border-radius: var(--radius);
 }
 
-.site-gate-input:focus {
+.site-gate-digit:focus {
   outline: none;
   border-color: var(--taupe);
 }
 
-.site-gate-input--date {
-  letter-spacing: 0.04em;
-  text-align: center;
+.site-gate-slash {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--taupe-light);
+  line-height: 2.55rem;
+  user-select: none;
+  padding: 0 0.06rem;
 }
 
-.site-gate-input--date::placeholder {
-  color: rgba(107, 101, 96, 0.82);
-  opacity: 1;
-  font-weight: 400;
+@media (min-width: 400px) {
+  .site-gate-digit {
+    width: 2.35rem;
+    height: 2.65rem;
+  }
+
+  .site-gate-slash {
+    line-height: 2.65rem;
+  }
 }
 
 .site-gate-submit {
@@ -155,7 +182,7 @@ html.site-access-granted .site-gate,
   font-family: var(--font-sans);
   font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: normal;
   color: var(--bone);
   background: var(--taupe);
   border: none;
@@ -257,7 +284,7 @@ body:has(.hero.hero--media-ready) .nav {
   text-decoration: none;
   font-weight: 400;
   font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  letter-spacing: normal;
   text-transform: uppercase;
   transition: color 0.2s;
 }
@@ -419,8 +446,9 @@ body:has(.hero.hero--media-ready) .nav {
 
 .hero-date {
   font-family: var(--font-hero-date);
-  font-size: clamp(2.3rem, 5.8vw, 3.6rem);
+  font-size: var(--font-display-heading-size);
   font-weight: 400;
+  letter-spacing: normal;
   color: var(--taupe);
   margin: 0 auto;
   line-height: 1.3;
@@ -476,9 +504,9 @@ body:has(.hero.hero--media-ready) .nav {
     transform: none !important;
   }
 
-  .section-intro .intro-heading,
-  .section-intro .intro-body,
-  .section-intro .intro-signoff,
+  .section-welcome .intro-heading,
+  .section-welcome .intro-body,
+  .section-welcome .intro-signoff,
   .section-countdown .countdown-reveal,
   .section-story .story-section-title,
   .section-story .story-body p,
@@ -503,88 +531,119 @@ body:has(.hero.hero--media-ready) .nav {
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 5.8vw, 3.35rem);
+  font-size: var(--font-display-heading-size);
   font-weight: 400;
   text-align: center;
-  letter-spacing: 0.08em;
+  letter-spacing: normal;
   text-transform: none;
   color: var(--taupe);
   margin: 0 0 var(--space-xl);
 }
 
-/* Welcome (under hero) */
-.section-intro {
+/* Welcome — default surface when not on coastal stage */
+.section-welcome {
   background: var(--white);
 }
 
-.section-intro .container {
+.section-welcome .container {
   max-width: 42rem;
+}
+
+/* Countdown strip — white band between hero and coastal welcome */
+.section-countdown {
+  background: var(--white);
+}
+
+.section-countdown .container {
+  max-width: 42rem;
+  display: flex;
+  justify-content: center;
 }
 
 .intro-countdown-stage {
   min-height: 100svh;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   background-image:
-    linear-gradient(rgba(36, 33, 31, 0.54), rgba(36, 33, 31, 0.54)),
+    linear-gradient(rgba(18, 16, 15, 0.68), rgba(18, 16, 15, 0.68)),
     url("assets/site-backdrop.png");
   background-size: cover;
-  background-position: center;
+  background-position: center, center bottom;
   background-repeat: no-repeat;
 }
 
-.intro-countdown-stage .section-intro,
-.intro-countdown-stage .section-countdown {
+.intro-countdown-stage.section-welcome.section {
+  padding: 0;
+  background-color: transparent;
+}
+
+.intro-countdown-stage .welcome-inner {
   position: relative;
-}
-
-.intro-countdown-stage .section-intro {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: calc(80px + var(--space-xl)) var(--space-md) var(--space-xl);
-  background: rgba(255, 255, 255, 0.82);
-}
-
-.intro-countdown-stage .section-intro .container {
   width: 100%;
+  flex: 1 1 auto;
+  min-height: 100svh;
+  padding: max(env(safe-area-inset-top), calc(56px + var(--space-md)))
+    var(--space-md)
+    max(env(safe-area-inset-bottom), var(--space-xl));
+  background: transparent;
+  isolation: isolate;
 }
 
-.intro-countdown-stage .section-countdown {
-  padding: var(--space-lg) var(--space-md);
-  background: rgba(245, 245, 240, 0.84);
+.intro-countdown-stage .welcome-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 10, 12, 0.35) 0%,
+    rgba(8, 10, 12, 0.55) 100%
+  );
+}
+
+.intro-countdown-stage .welcome-inner .container {
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 /* Same type pairing as Our Story: Cinzel for heading, story body stack for copy */
 .intro-heading {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 5.8vw, 3.35rem);
+  font-size: var(--font-display-heading-size);
   font-weight: 400;
   font-style: normal;
-  letter-spacing: 0.12em;
+  letter-spacing: normal;
   text-transform: none;
   color: var(--taupe);
   text-align: center;
-  margin: 0 0 var(--space-xl);
-  line-height: 1.35;
+  margin: 0 0 var(--space-md);
+  line-height: 1.25;
 }
 
 .intro-body {
   font-family: var(--font-story-body);
   font-size: var(--section-copy-size);
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   text-transform: none;
   color: var(--taupe-light);
   text-align: center;
   line-height: 1.8;
-  margin: 0 0 var(--space-lg);
+  margin: 0 0 var(--space-sm);
 }
 
 .intro-signoff {
   font-family: var(--font-story-body);
   font-size: var(--section-copy-size);
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   text-transform: none;
   color: var(--taupe-light);
   text-align: center;
@@ -592,22 +651,32 @@ body:has(.hero.hero--media-ready) .nav {
   margin: 0;
 }
 
-/* Countdown */
-.section-countdown {
-  background: var(--paper);
+.intro-countdown-stage .welcome-inner .intro-heading {
+  color: var(--white);
+  text-shadow:
+    0 1px 28px rgba(0, 0, 0, 0.55),
+    0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
-.section-countdown .container {
-  max-width: 42rem;
+.intro-countdown-stage .welcome-inner .intro-body,
+.intro-countdown-stage .welcome-inner .intro-signoff {
+  color: rgba(255, 255, 255, 0.93);
+  text-shadow:
+    0 1px 18px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
+/* Countdown panel */
 .countdown-panel {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: var(--space-sm);
-  padding-bottom: var(--space-sm);
-  border-top: 1px solid rgba(139, 133, 126, 0.2);
+  width: 100%;
+  max-width: min(36rem, 100%);
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-md);
   text-align: center;
+  background: var(--paper);
+  border: 1px solid rgba(139, 133, 126, 0.28);
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(107, 101, 96, 0.06);
 }
 
 .countdown-values {
@@ -624,27 +693,19 @@ body:has(.hero.hero--media-ready) .nav {
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 400;
-  letter-spacing: 0.06em;
+  letter-spacing: normal;
   text-transform: none;
   color: var(--taupe-light);
 }
 
 .countdown-values strong {
-  font-family: var(--font-display);
-  font-size: clamp(2.9rem, 7vw, 5.4rem);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.1;
+  font-family: "Cinzel", "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.35rem, 6vw, 4.1rem);
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 1.08;
   color: var(--taupe);
-}
-
-.countdown-note {
-  margin: var(--space-md) 0 0;
-  font-family: var(--font-body);
-  font-size: clamp(1.35rem, 3vw, 2rem);
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--taupe);
+  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 35rem) {
@@ -716,6 +777,7 @@ body:has(.hero.hero--media-ready) .nav {
 .section-story .story-text-panel {
   min-height: 0;
   min-width: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -730,15 +792,109 @@ body:has(.hero.hero--media-ready) .nav {
   max-width: 100%;
   margin-inline: 0;
   text-align: left;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 133, 126, 0.45) rgba(139, 133, 126, 0.1);
   -webkit-overflow-scrolling: touch;
+  padding-bottom: clamp(1.75rem, 4vh, 3rem);
+  transition: box-shadow 0.25s ease;
+}
+
+.section-story .story-text-scroll.story-text-scroll--at-end {
+  box-shadow: inset 0 -1px 0 rgba(139, 133, 126, 0.22);
+}
+
+.section-story .story-text-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.section-story .story-text-scroll::-webkit-scrollbar-track {
+  background: rgba(139, 133, 126, 0.1);
+  border-radius: 5px;
+}
+
+.section-story .story-text-scroll::-webkit-scrollbar-thumb {
+  background: rgba(139, 133, 126, 0.38);
+  border-radius: 5px;
+}
+
+.section-story .story-text-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 133, 126, 0.52);
+}
+
+.story-scroll-affordance {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: clamp(4.25rem, 15vh, 7rem);
+  padding-bottom: 0.35rem;
+  background: linear-gradient(
+    to top,
+    #f8f5ee 0%,
+    rgba(248, 245, 238, 0.96) 38%,
+    rgba(248, 245, 238, 0.55) 68%,
+    rgba(248, 245, 238, 0) 100%
+  );
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.story-scroll-affordance-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--taupe);
+}
+
+.story-scroll-affordance-cue::after {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--taupe);
+  border-bottom: 2px solid var(--taupe);
+  transform: translateY(0) rotate(45deg);
+  animation: storyScrollCueNudge 1.35s ease-in-out infinite;
+}
+
+.story-scroll-affordance.story-scroll-affordance--no-overflow,
+.story-scroll-affordance.story-scroll-affordance--at-end {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-scroll-affordance-cue::after {
+    animation: none;
+  }
+}
+
+@keyframes storyScrollCueNudge {
+  0%,
+  100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  50% {
+    transform: translateY(7px) rotate(45deg);
+  }
 }
 
 .section-story .story-body p {
   font-family: var(--font-story-body);
-  font-size: var(--section-copy-size);
+  font-size: 18px;
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   color: var(--taupe-light);
   line-height: 1.8;
   margin: 0 0 var(--space-md);
@@ -782,9 +938,9 @@ body:has(.hero.hero--media-ready) .nav {
 }
 
 /* Scroll-in per block: left → right (.story-anim-ready / .story-in-view on each element) */
-.section-intro .intro-heading.story-anim-ready:not(.story-in-view),
-.section-intro .intro-body.story-anim-ready:not(.story-in-view),
-.section-intro .intro-signoff.story-anim-ready:not(.story-in-view),
+.section-welcome .intro-heading.story-anim-ready:not(.story-in-view),
+.section-welcome .intro-body.story-anim-ready:not(.story-in-view),
+.section-welcome .intro-signoff.story-anim-ready:not(.story-in-view),
 .section-countdown .countdown-reveal.story-anim-ready:not(.story-in-view),
 .section-story .story-section-title.story-anim-ready:not(.story-in-view),
 .section-story .story-body p.story-anim-ready:not(.story-in-view),
@@ -795,9 +951,9 @@ body:has(.hero.hero--media-ready) .nav {
   transform: translateX(calc(-1 * clamp(4.5rem, 28vw, 14rem)));
 }
 
-.section-intro .intro-heading.story-anim-ready,
-.section-intro .intro-body.story-anim-ready,
-.section-intro .intro-signoff.story-anim-ready,
+.section-welcome .intro-heading.story-anim-ready,
+.section-welcome .intro-body.story-anim-ready,
+.section-welcome .intro-signoff.story-anim-ready,
 .section-countdown .countdown-reveal.story-anim-ready,
 .section-story .story-section-title.story-anim-ready,
 .section-story .story-body p.story-anim-ready,
@@ -809,9 +965,9 @@ body:has(.hero.hero--media-ready) .nav {
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.section-intro .intro-heading.story-in-view,
-.section-intro .intro-body.story-in-view,
-.section-intro .intro-signoff.story-in-view,
+.section-welcome .intro-heading.story-in-view,
+.section-welcome .intro-body.story-in-view,
+.section-welcome .intro-signoff.story-in-view,
 .section-countdown .countdown-reveal.story-in-view,
 .section-story .story-section-title.story-in-view,
 .section-story .story-body p.story-in-view,
@@ -836,7 +992,8 @@ body:has(.hero.hero--media-ready) .nav {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(2.45rem, 6vw, 3.7rem);
+  font-size: var(--font-display-heading-size);
+  letter-spacing: normal;
   color: var(--taupe);
   line-height: 1.25;
   margin: 0 0 var(--space-xl);
@@ -852,9 +1009,9 @@ body:has(.hero.hero--media-ready) .nav {
 
 .travel-subheading {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 20px;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--taupe);
   margin: 0 0 var(--space-md);
@@ -862,9 +1019,9 @@ body:has(.hero.hero--media-ready) .nav {
 
 .travel-prose p {
   font-family: var(--font-story-body);
-  font-size: var(--section-copy-size);
+  font-size: 18px;
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   color: var(--taupe-light);
   line-height: 1.8;
   margin: 0 0 var(--space-md);
@@ -888,7 +1045,7 @@ body:has(.hero.hero--media-ready) .nav {
   font-family: var(--font-sans);
   font-style: italic;
   font-weight: 400;
-  font-size: calc(var(--section-copy-size) - 0.08rem);
+  font-size: 18px;
   color: var(--taupe-light);
 }
 
@@ -902,7 +1059,7 @@ body:has(.hero.hero--media-ready) .nav {
 
 .travel-list {
   font-family: var(--font-story-body);
-  font-size: var(--section-copy-size);
+  font-size: 18px;
   color: var(--taupe-light);
   line-height: 1.75;
   margin: 0 0 var(--space-md);
@@ -929,9 +1086,9 @@ body:has(.hero.hero--media-ready) .nav {
 
 .dress-prose p {
   font-family: var(--font-story-body);
-  font-size: var(--section-copy-size);
+  font-size: 18px;
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   color: var(--taupe-light);
   line-height: 1.8;
   margin: 0 0 var(--space-md);
@@ -953,7 +1110,7 @@ body:has(.hero.hero--media-ready) .nav {
 
 .dress-list {
   font-family: var(--font-story-body);
-  font-size: var(--section-copy-size);
+  font-size: 18px;
   color: var(--taupe-light);
   line-height: 1.75;
   margin: 0 0 var(--space-md);
@@ -997,8 +1154,8 @@ body:has(.hero.hero--media-ready) .nav {
 }
 
 .dress-swatch--blush {
-  /* Dusty pastel pink — closer to the reference card */
-  background: #debac4;
+  /* Soft blush — desaturated, neutral rose-gray */
+  background: #d3cacd;
 }
 
 .dress-swatch--taupe {
@@ -1064,7 +1221,7 @@ body:has(.hero.hero--media-ready) .nav {
 
 .faq-question {
   font-family: var(--font-story-body);
-  font-size: var(--section-copy-size);
+  font-size: 18px;
   font-weight: 600;
   color: var(--taupe);
   line-height: 1.45;
@@ -1073,9 +1230,9 @@ body:has(.hero.hero--media-ready) .nav {
 
 .faq-answer p {
   font-family: var(--font-story-body);
-  font-size: var(--section-copy-size);
+  font-size: 18px;
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   color: var(--taupe-light);
   line-height: 1.8;
   margin: 0 0 var(--space-sm);
@@ -1121,7 +1278,7 @@ body:has(.hero.hero--media-ready) .nav {
   font-family: var(--font-serif);
   font-size: 0.9rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: normal;
   text-transform: uppercase;
   margin: 0 0 var(--space-sm);
   color: var(--taupe);
@@ -1130,6 +1287,7 @@ body:has(.hero.hero--media-ready) .nav {
 .detail-time {
   font-family: var(--font-script);
   font-size: 1.5rem;
+  letter-spacing: normal;
   color: var(--taupe);
   margin: 0 0 var(--space-xs);
 }
@@ -1137,7 +1295,7 @@ body:has(.hero.hero--media-ready) .nav {
 .detail-place {
   font-family: var(--font-serif);
   font-size: 0.8rem;
-  letter-spacing: 0.15em;
+  letter-spacing: normal;
   text-transform: uppercase;
   font-weight: 400;
   color: var(--taupe);
@@ -1166,7 +1324,7 @@ body:has(.hero.hero--media-ready) .nav {
 .rsvp-by {
   text-align: center;
   font-size: 0.8rem;
-  letter-spacing: 0.15em;
+  letter-spacing: normal;
   color: var(--taupe-light);
   margin: -var(--space-md) 0 var(--space-lg);
 }
@@ -1316,7 +1474,7 @@ body:has(.hero.hero--media-ready) .nav {
 .section-rsvp .rsvp-title {
   font-family: var(--font-serif);
   font-size: clamp(1.35rem, 4.5vw, 28px);
-  letter-spacing: 3px;
+  letter-spacing: normal;
 }
 
 .section-rsvp .rsvp-date {
@@ -1357,7 +1515,7 @@ body:has(.hero.hero--media-ready) .nav {
   background: transparent;
   font-family: var(--font-sans);
   font-size: 12px;
-  letter-spacing: 1px;
+  letter-spacing: normal;
   color: var(--taupe);
 }
 
@@ -1376,7 +1534,7 @@ body:has(.hero.hero--media-ready) .nav {
   border-radius: var(--radius);
   font-family: var(--font-sans);
   font-size: 11px;
-  letter-spacing: 2px;
+  letter-spacing: normal;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
 }
@@ -1387,7 +1545,7 @@ body:has(.hero.hero--media-ready) .nav {
 
 .section-rsvp .rsvp-envelope-hint {
   font-size: 0.78rem;
-  letter-spacing: 0.15em;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--taupe-light);
   margin: var(--space-md) 0 0;
@@ -1427,7 +1585,7 @@ body:has(.hero.hero--media-ready) .nav {
   display: block;
   font-size: 0.7rem;
   font-weight: 500;
-  letter-spacing: 0.15em;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--taupe);
   margin-bottom: var(--space-xs);
@@ -1471,7 +1629,7 @@ body:has(.hero.hero--media-ready) .nav {
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--bone);
   background: var(--taupe);
@@ -1521,7 +1679,7 @@ body:has(.hero.hero--media-ready) .nav {
   font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--taupe);
   background: var(--white);
@@ -1549,14 +1707,14 @@ body:has(.hero.hero--media-ready) .nav {
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 3.2vw, 1.85rem);
   font-weight: 400;
-  letter-spacing: 0.02em;
+  letter-spacing: normal;
   margin: 0 0 var(--space-xs);
 }
 
 .footer-names {
   font-family: var(--font-body);
   font-size: 1.1rem;
-  letter-spacing: 0.08em;
+  letter-spacing: normal;
   text-transform: none;
   opacity: 0.9;
   margin: 0;

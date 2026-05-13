@@ -16,17 +16,16 @@ function siteGateSetAccessCookie() {
   document.cookie = `${SITE_ACCESS_COOKIE}; path=/; max-age=${maxAge}; SameSite=Lax`;
 }
 
-function formatSiteGateDateDigits(digits) {
-  const d = digits.replace(/\D/g, '').slice(0, 8);
-  if (d.length <= 2) return d;
-  if (d.length <= 4) return `${d.slice(0, 2)}/${d.slice(2)}`;
+function siteGateDigitsToDateString(digitInputs) {
+  const d = digitInputs.map((el) => el.value.replace(/\D/g, '')).join('');
+  if (d.length !== 8) return '';
   return `${d.slice(0, 2)}/${d.slice(2, 4)}/${d.slice(4)}`;
 }
 
 (function initSiteGate() {
   const gate = document.getElementById('site-gate');
   const form = document.getElementById('site-gate-form');
-  const input = document.getElementById('site-gate-password');
+  const digitInputs = form ? Array.from(form.querySelectorAll('.site-gate-digit')) : [];
   const errEl = document.getElementById('site-gate-error');
   const body = document.body;
 
@@ -43,12 +42,19 @@ function formatSiteGateDateDigits(digits) {
     gate?.setAttribute('aria-hidden', 'true');
   }
 
+  function clearDigits() {
+    digitInputs.forEach((el) => {
+      el.value = '';
+    });
+  }
+
   function deny(message) {
     if (errEl) {
       errEl.textContent = message;
       errEl.hidden = false;
     }
-    input?.select();
+    clearDigits();
+    digitInputs[0]?.focus();
   }
 
   let alreadyUnlocked = false;
@@ -65,29 +71,49 @@ function formatSiteGateDateDigits(digits) {
     return;
   }
 
-  if (!form || !input) return;
+  if (!form || digitInputs.length !== 8) return;
 
-  function syncDateInputFromDigits() {
-    const cursor = input.selectionStart ?? input.value.length;
-    const before = input.value;
-    const digitsBefore = before.slice(0, cursor).replace(/\D/g, '').length;
-    const next = formatSiteGateDateDigits(input.value);
-    input.value = next;
-    let pos = 0;
-    let seen = 0;
-    while (pos < next.length && seen < digitsBefore) {
-      if (/\d/.test(next[pos])) seen += 1;
-      pos += 1;
-    }
-    if (pos < next.length && next[pos] === '/') pos += 1;
-    input.setSelectionRange(pos, pos);
-  }
+  digitInputs.forEach((inp, i) => {
+    inp.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !inp.value) {
+        e.preventDefault();
+        if (i > 0) {
+          digitInputs[i - 1].focus();
+          digitInputs[i - 1].value = '';
+        }
+      }
+      if (e.key === 'ArrowLeft' && i > 0) {
+        e.preventDefault();
+        digitInputs[i - 1].focus();
+      }
+      if (e.key === 'ArrowRight' && i < 7) {
+        e.preventDefault();
+        digitInputs[i + 1].focus();
+      }
+    });
 
-  input.addEventListener('input', syncDateInputFromDigits);
+    inp.addEventListener('input', () => {
+      const digit = inp.value.replace(/\D/g, '').slice(-1);
+      inp.value = digit;
+      if (digit && i < 7) digitInputs[i + 1].focus();
+    });
+
+    inp.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const raw = (e.clipboardData && e.clipboardData.getData('text')) || '';
+      const paste = raw.replace(/\D/g, '').slice(0, 8);
+      if (!paste) return;
+      for (let j = 0; j < paste.length && i + j < 8; j += 1) {
+        digitInputs[i + j].value = paste[j];
+      }
+      const next = Math.min(7, i + paste.length);
+      digitInputs[next].focus();
+    });
+  });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const value = formatSiteGateDateDigits(input.value);
+    const value = siteGateDigitsToDateString(digitInputs);
     if (value === SITE_ACCESS_PASSWORD) {
       try {
         localStorage.setItem(SITE_ACCESS_STORAGE_KEY, '1');
@@ -98,10 +124,10 @@ function formatSiteGateDateDigits(digits) {
       window.location.reload();
       return;
     }
-    deny('That date doesn’t match. Use month / day / year like the example.');
+    deny('That date doesn’t match. Please use month, day, and year (eight digits).');
   });
 
-  input.focus();
+  digitInputs[0]?.focus();
 })();
 
 // Mobile nav toggle
@@ -211,16 +237,14 @@ if (!prefersReducedMotion.matches) {
   const faqSection = document.getElementById('faq');
 
   const scrollRevealTargets = [
+    ...(countdownSection
+      ? [countdownSection.querySelector('.countdown-reveal')]
+      : []),
     ...(welcomeSection
       ? [
           welcomeSection.querySelector('.intro-heading'),
           welcomeSection.querySelector('.intro-body'),
           welcomeSection.querySelector('.intro-signoff'),
-        ]
-      : []),
-    ...(countdownSection
-      ? [
-          countdownSection.querySelector('.countdown-reveal'),
         ]
       : []),
     ...(storySection
@@ -297,4 +321,31 @@ if (!prefersReducedMotion.matches) {
   video.addEventListener('loadeddata', settle);
   video.addEventListener('canplay', settle);
   video.addEventListener('error', onVideoError, { once: true });
+})();
+
+(function initStoryScrollAffordance() {
+  const scrollEl = document.querySelector('.section-story .story-text-scroll');
+  const affordance = document.querySelector('.story-scroll-affordance');
+  if (!scrollEl || !affordance) return;
+
+  const endSlackPx = 12;
+
+  function updateStoryScrollUI() {
+    const sh = scrollEl.scrollHeight;
+    const ch = scrollEl.clientHeight;
+    const canScroll = sh > ch + 2;
+    const atEnd = !canScroll || scrollEl.scrollTop + ch >= sh - endSlackPx;
+
+    affordance.classList.toggle('story-scroll-affordance--no-overflow', !canScroll);
+    affordance.classList.toggle('story-scroll-affordance--at-end', canScroll && atEnd);
+    scrollEl.classList.toggle('story-text-scroll--at-end', atEnd);
+  }
+
+  scrollEl.addEventListener('scroll', updateStoryScrollUI, { passive: true });
+  window.addEventListener('resize', updateStoryScrollUI);
+  if (typeof ResizeObserver !== 'undefined') {
+    const ro = new ResizeObserver(updateStoryScrollUI);
+    ro.observe(scrollEl);
+  }
+  updateStoryScrollUI();
 })();
