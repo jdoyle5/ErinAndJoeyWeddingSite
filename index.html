@@ -7,17 +7,22 @@
   <title>We're Getting Married</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Great+Vibes&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Great+Vibes&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/cow5uou.css">
   <!-- Optional: Baskerville Pro from Adobe Fonts — add kit link, then it wins in --font-story-body -->
   <!-- <link rel="stylesheet" href="https://use.typekit.net/xxxxxxx.css"> -->
   <link rel="stylesheet" href="styles.css">
-  <!-- Key must match SITE_ACCESS_STORAGE_KEY in script.js (avoids a flash of the gate for returning guests) -->
+  <!-- Keys must match script.js (avoids a flash of the gate for returning guests) -->
   <script>
-    try {
-      if (localStorage.getItem('erinjoey_wedding_site_access_v1') === '1') {
-        document.documentElement.classList.add('site-access-granted');
-      }
-    } catch (e) {}
+    (function () {
+      var k = 'erinjoey_wedding_site_access_v1';
+      var ok = false;
+      try {
+        ok = localStorage.getItem(k) === '1';
+      } catch (e) {}
+      if (!ok && document.cookie.indexOf(k + '=1') !== -1) ok = true;
+      if (ok) document.documentElement.classList.add('site-access-granted');
+    })();
   </script>
 </head>
 <body class="is-site-gated">
@@ -29,17 +34,21 @@
     aria-labelledby="site-gate-title"
   >
     <div class="site-gate-inner">
-      <p class="site-gate-eyebrow">Erin &amp; Joey</p>
-      <h1 id="site-gate-title" class="site-gate-title">Site password</h1>
-      <p class="site-gate-hint">Enter the password you received with your save the date.</p>
+      <span class="site-gate-logo" role="img" aria-label="Erin and Joey"></span>
+      <h1 id="site-gate-title" class="site-gate-title">To gain access, please enter our wedding date.</h1>
       <form id="site-gate-form" class="site-gate-form">
-        <label class="visually-hidden" for="site-gate-password">Password</label>
+        <label class="visually-hidden" for="site-gate-password">Wedding date (MM/DD/YYYY)</label>
         <input
           id="site-gate-password"
-          class="site-gate-input"
-          type="password"
-          name="password"
-          autocomplete="current-password"
+          class="site-gate-input site-gate-input--date"
+          type="text"
+          name="wedding-date"
+          inputmode="numeric"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          maxlength="10"
+          placeholder="05/17/2019"
           required
           aria-describedby="site-gate-error"
         >
@@ -51,13 +60,18 @@
 
   <nav class="nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="#home" class="nav-logo">Erin & Joey</a>
+      <a href="#home" class="nav-logo" aria-label="Erin and Joey">
+        <span class="nav-logo-mark" aria-hidden="true"></span>
+      </a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links">
+        <li><a href="#welcome">Welcome</a></li>
         <li><a href="#story">Our Story</a></li>
-        <li><a href="#stay">Book Your Stay</a></li>
+        <li><a href="#travel">Travel</a></li>
+        <li><a href="#dress-code">Dress Code</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </div>
   </nav>
@@ -78,22 +92,60 @@
       </video>
     </div>
     <div class="hero-content">
-      <p class="hero-subtitle">Save the Date</p>
       <h1 class="hero-names">
         <span class="hero-logo" role="img" aria-label="Erin and Joey"></span>
       </h1>
       <p class="hero-date">January 9, 2027</p>
-      <p class="hero-location">Esperanza Resort<br>Cabo San Lucas, Mexico</p>
     </div>
-    <a href="#story" class="hero-scroll" aria-label="Scroll to story">↓</a>
+    <a href="#welcome" class="hero-scroll" aria-label="Scroll to welcome message">↓</a>
   </header>
 
   <main>
-    <section id="story" class="section section-story">
-      <div class="container">
-        <h2 class="section-title">Our Story</h2>
-        <div class="story-content">
-          <div class="story-body">
+    <div class="intro-countdown-stage">
+      <section id="welcome" class="section section-intro">
+        <div class="container">
+          <h2 class="intro-heading">We’re getting married!</h2>
+          <p class="intro-body">
+            We can’t wait to celebrate this special moment with our closest family and friends. Your love and support mean so much to us, and we feel incredibly grateful to share this occasion with you. As we count down to the wedding, we’ve created this website to share important details and help you plan your stay. Thank you for being such an important part of our lives—we look forward to having you with us in Cabo San Lucas.
+          </p>
+          <p class="intro-signoff">
+            Love,<br>
+            Erin &amp; Joey
+          </p>
+        </div>
+      </section>
+
+      <section id="countdown" class="section section-countdown">
+        <div class="container">
+          <div class="countdown-panel countdown-reveal" aria-label="Countdown to wedding day">
+            <p class="countdown-values" id="wedding-countdown" aria-live="polite">
+              <span><strong data-countdown-days>--</strong> Days</span>
+              <span><strong data-countdown-hours>--</strong> Hours</span>
+              <span><strong data-countdown-minutes>--</strong> Minutes</span>
+              <span><strong data-countdown-seconds>--</strong> Seconds</span>
+            </p>
+            <p class="countdown-note">Until We Say I Do</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section id="story" class="section section-story" aria-labelledby="story-heading">
+      <h2 id="story-heading" class="section-title story-section-title">Our Story</h2>
+      <div class="story-split">
+        <div class="story-photo-panel">
+          <img
+            class="story-photo"
+            src="assets/our-story-photo.png"
+            alt="Erin and Joey celebrating outdoors by the ocean"
+            width="1200"
+            height="1600"
+            loading="lazy"
+            decoding="async"
+          >
+        </div>
+        <div class="story-text-panel">
+          <div class="story-text-scroll story-body">
             <p>Erin and Joey met on September 9, 2021, at Urth Caffé in Beverly Hills. What was supposed to be a quick, casual Hinge date somehow turned into three hours of nonstop conversation and banter. Erin fell for Joey’s witty, sarcastic humor (and dreamy blue eyes), and Joey was equally impressed that Erin could keep up—and keep it coming (or maybe it was her long hair).</p>
             <p>Over the next few dates, it became clear how much they had in common—from both attending K–12 schools with built-in lifelong friend groups, to their close relationships with family, their shared love of food, and their overlapping worlds in tech as a software engineer and a tech publicist. They also discovered a mutual love of video games—and, more importantly, a strong competitive streak—with early dates featuring mini golf, bowling at Lucky Strike, and trips to Dave &amp; Buster’s.</p>
             <p>In January, during a trip to Las Vegas, Joey made things official—asking Erin to be his girlfriend. About 24 hours later, Erin surprised him again… by giving him COVID. The two found themselves stuck in a hotel room together for a week—an unexpected test that somehow turned into one of their favorite memories and proved early on that they really do like each other.</p>
@@ -108,13 +160,175 @@
       </div>
     </section>
 
-    <section id="stay" class="section section-stay">
+    <section id="travel" class="section section-travel">
       <div class="container">
-        <h2 class="section-title">Book Your Stay</h2>
-        <p class="stay-intro">Our wedding will be at Esperanza, an Auberge Resorts Collection property in Los Cabos. Reserve your room directly with the resort—you’ll be steps from the celebration and can enjoy The Spa at Esperanza and the rest of the property at your own pace.</p>
-        <p class="stay-cta-wrap">
-          <a class="stay-cta" href="https://aubergeresorts.com/esperanza/" target="_blank" rel="noopener noreferrer">Book Esperanza Resort &amp; Spa</a>
-        </p>
+        <h2 class="travel-main-title travel-reveal">Travel &amp; Accommodations</h2>
+
+        <div class="travel-reveal travel-group">
+          <h3 class="travel-subheading">Where to stay</h3>
+          <div class="travel-prose">
+            <p>
+              We have reserved a limited room block at
+              <a href="https://aubergeresorts.com/esperanza/" target="_blank" rel="noopener noreferrer">Esperanza, Auberge Resorts Collection</a>,
+              where the wedding will take place.
+            </p>
+            <p>
+              We highly recommend booking early, as rooms are limited and expected to fill quickly. Guests who book within our room block will receive a preferred group rate and be just steps away from the celebration.
+            </p>
+            <p class="travel-callout">Our room block rate will only be available while rooms last.</p>
+            <p class="travel-cta-line">
+              <a class="travel-cta-link" href="https://aubergeresorts.com/esperanza/" target="_blank" rel="noopener noreferrer">Reserve your room</a>
+            </p>
+            <p class="travel-policies-intro">Please note the following resort policies:</p>
+            <ul class="travel-list">
+              <li>A three-night minimum stay is required</li>
+              <li>Saturday arrivals and departures are not permitted</li>
+              <li>Rates are based on single or double occupancy</li>
+              <li>Rates are subject to 20% tax and 15% service charge and do not include meals</li>
+            </ul>
+            <p>
+              While we would love for guests to stay on property, there are also a number of nearby hotels and vacation rentals in Cabo San Lucas for those who prefer alternative accommodations.
+            </p>
+          </div>
+        </div>
+
+        <div class="travel-reveal travel-group">
+          <h3 class="travel-subheading">Flights</h3>
+          <div class="travel-prose">
+            <p>We recommend flying into Los Cabos International Airport (SJD). The airport is approximately a 35-minute drive from the resort.</p>
+            <p>We suggest booking flights early for the best availability and pricing.</p>
+            <p>Please ensure you have a valid passport.</p>
+          </div>
+        </div>
+
+        <div class="travel-reveal travel-group">
+          <h3 class="travel-subheading">Transportation</h3>
+          <div class="travel-prose">
+            <p>Ground transportation details will be shared closer to the wedding weekend.</p>
+            <p>If you are staying off property, we recommend arranging airport transportation in advance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dress-code" class="section section-dress">
+      <div class="container">
+        <h2 class="section-title dress-reveal">Dress Code</h2>
+        <div class="dress-reveal dress-body-wrap">
+          <div class="dress-prose">
+            <p>
+              The dress code is <strong>formal attire</strong>, and we recommend elegant, warm-weather pieces suited for a coastal setting.
+            </p>
+            <p class="dress-temps-label">Anticipated temperatures:</p>
+            <ul class="dress-list">
+              <li>Daytime: ~77–82°F (25–28°C)</li>
+              <li>Evening: ~60–68°F (16–20°C)</li>
+            </ul>
+            <p>
+              We kindly ask guests to avoid bright colors and instead opt for soft, neutral tones that complement the coastal setting. Classic neutrals such as black are welcome, though lighter tones are encouraged.
+            </p>
+            <p>A suggested color palette is provided below for inspiration.</p>
+            <div class="dress-palette-grid" role="group" aria-label="Suggested color palette">
+              <div class="dress-palette-item">
+                <span class="dress-swatch dress-swatch--champagne" aria-hidden="true"></span>
+                <span class="dress-swatch-label">Champagne</span>
+              </div>
+              <div class="dress-palette-item">
+                <span class="dress-swatch dress-swatch--blush" aria-hidden="true"></span>
+                <span class="dress-swatch-label">Soft Blush</span>
+              </div>
+              <div class="dress-palette-item">
+                <span class="dress-swatch dress-swatch--taupe" aria-hidden="true"></span>
+                <span class="dress-swatch-label">Warm Taupe</span>
+              </div>
+              <div class="dress-palette-item">
+                <span class="dress-swatch dress-swatch--sand" aria-hidden="true"></span>
+                <span class="dress-swatch-label">Soft Sand</span>
+              </div>
+              <div class="dress-palette-item">
+                <span class="dress-swatch dress-swatch--sage" aria-hidden="true"></span>
+                <span class="dress-swatch-label">Soft Sage</span>
+              </div>
+              <div class="dress-palette-item">
+                <span class="dress-swatch dress-swatch--warm-gray" aria-hidden="true"></span>
+                <span class="dress-swatch-label">Warm Gray</span>
+              </div>
+              <div class="dress-palette-item">
+                <span class="dress-swatch dress-swatch--olive" aria-hidden="true"></span>
+                <span class="dress-swatch-label">Muted Olive</span>
+              </div>
+              <div class="dress-palette-item">
+                <span class="dress-swatch dress-swatch--slate" aria-hidden="true"></span>
+                <span class="dress-swatch-label">Slate Blue</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section section-faq">
+      <div class="container">
+        <h2 class="section-title faq-reveal">Frequently Asked Questions</h2>
+
+        <div class="faq-list">
+          <article class="faq-item faq-reveal">
+            <h3 class="faq-question">When should I RSVP by?</h3>
+            <div class="faq-answer">
+              <p>
+                Formal invitations will be sent closer to the wedding date. We kindly ask that you RSVP by the date listed on your invitation.
+              </p>
+              <p>
+                If you already know you won’t be able to join us, we would greatly appreciate you letting us know as soon as possible as we continue planning.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item faq-reveal">
+            <h3 class="faq-question">How do I book within the room block?</h3>
+            <div class="faq-answer">
+              <p>
+                Please refer to the <a href="#travel">Travel &amp; Accommodations</a> page for full booking details, or contact the resort directly at
+                <a href="tel:+18663112226">866-311-2226</a>
+                and reference: Erin Manago &amp; Joseph Doyle Wedding – January 9, 2027
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item faq-reveal">
+            <h3 class="faq-question">Will there be events outside of the wedding day?</h3>
+            <div class="faq-answer">
+              <p>
+                We will be hosting one special celebration on our wedding day. We hope you’ll enjoy the rest of the weekend relaxing and exploring Cabo and the resort amenities at your own pace.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item faq-reveal">
+            <h3 class="faq-question">Do I need a passport?</h3>
+            <div class="faq-answer">
+              <p>Yes, a valid passport is required for travel to Mexico.</p>
+            </div>
+          </article>
+
+          <article class="faq-item faq-reveal">
+            <h3 class="faq-question">Are children invited?</h3>
+            <div class="faq-answer">
+              <p>
+                While we love your little ones, our wedding weekend will be an adults-only celebration. Thank you so much for your understanding—we can’t wait to celebrate with you.
+              </p>
+            </div>
+          </article>
+
+          <article class="faq-item faq-reveal">
+            <h3 class="faq-question">Can I bring a plus-one?</h3>
+            <div class="faq-answer">
+              <p>
+                Due to the intimate nature of our wedding, we are only able to accommodate those guests formally listed on your invitation.
+              </p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   </main>
