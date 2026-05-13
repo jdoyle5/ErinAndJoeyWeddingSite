@@ -323,6 +323,53 @@ if (!prefersReducedMotion.matches) {
   video.addEventListener('error', onVideoError, { once: true });
 })();
 
+(function initStoryPhotoSlideshow() {
+  const root = document.querySelector('.story-slideshow');
+  if (!root) return;
+  const slides = [...root.querySelectorAll('.story-photo-slide')];
+  if (slides.length < 2) return;
+
+  function setActive(index) {
+    slides.forEach((el, i) => {
+      const on = i === index;
+      el.classList.toggle('is-active', on);
+      el.setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setActive(0);
+    return;
+  }
+
+  let index = 0;
+  const intervalMs = 7000;
+  let timerId = 0;
+
+  function tick() {
+    index = (index + 1) % slides.length;
+    setActive(index);
+  }
+
+  function start() {
+    if (timerId) return;
+    timerId = window.setInterval(tick, intervalMs);
+  }
+
+  function stop() {
+    if (!timerId) return;
+    window.clearInterval(timerId);
+    timerId = 0;
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') stop();
+    else start();
+  });
+
+  start();
+})();
+
 (function initStoryScrollAffordance() {
   const scrollEl = document.querySelector('.section-story .story-text-scroll');
   const affordance = document.querySelector('.story-scroll-affordance');

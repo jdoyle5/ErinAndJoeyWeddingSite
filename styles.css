@@ -723,7 +723,12 @@ body:has(.hero.hero--media-ready) .nav {
   min-height: 100svh;
   height: 100svh;
   padding: 0;
-  background: #f8f5ee;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)),
+    url("assets/our-story-bg-texture.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   overflow: hidden;
 }
 
@@ -744,6 +749,7 @@ body:has(.hero.hero--media-ready) .nav {
   max-width: min(90rem, 100%);
   margin-inline: auto;
   display: grid;
+  /* Equal-width columns so photo and text sides match */
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
   justify-items: stretch;
@@ -758,20 +764,57 @@ body:has(.hero.hero--media-ready) .nav {
   min-height: 0;
   min-width: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--story-gutter);
   box-sizing: border-box;
 }
 
-.section-story .story-photo {
-  display: block;
-  max-width: 100%;
+/* Bounds the frame; slides are absolutely stacked so intrinsic image sizes
+   cannot blow up the row (fixes bottom clipping / photos sitting too low). */
+.section-story .story-slideshow {
+  position: relative;
+  width: min(100%, 34rem);
+  min-height: 0;
+  flex: 1 1 auto;
+  height: 100%;
   max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+.section-story .story-slideshow .story-photo {
+  display: block;
   filter: grayscale(100%);
+}
+
+.section-story .story-photo-slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* Fill frame; crop tall/wide images instead of shrinking layout */
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.9s ease-in-out;
+}
+
+.section-story .story-photo-slide.is-active {
+  opacity: 1;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.section-story .story-photo-slide:focus-visible {
+  outline: 2px solid rgba(139, 133, 126, 0.65);
+  outline-offset: 4px;
 }
 
 .section-story .story-text-panel {
@@ -788,9 +831,9 @@ body:has(.hero.hero--media-ready) .nav {
 .section-story .story-text-scroll {
   flex: 1;
   min-height: 0;
-  width: min(100%, 30rem);
+  width: min(100%, 34rem);
   max-width: 100%;
-  margin-inline: 0;
+  margin-inline: auto;
   text-align: left;
   overflow-y: scroll;
   scrollbar-gutter: stable;
@@ -906,6 +949,7 @@ body:has(.hero.hero--media-ready) .nav {
 
 @media (max-width: 52rem) {
   .section-story {
+    --story-stack-row: min(48svh, calc((100svh - 5rem) / 2));
     height: auto;
     min-height: 100svh;
     overflow: visible;
@@ -913,27 +957,34 @@ body:has(.hero.hero--media-ready) .nav {
 
   .section-story .story-split {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(42svh, auto) minmax(0, 1fr);
+    /* Equal-height photo + text blocks */
+    grid-template-rows: var(--story-stack-row) var(--story-stack-row);
     height: auto;
     min-height: calc(100svh - var(--story-gutter));
   }
 
   .section-story .story-photo-panel {
-    max-height: 55svh;
+    max-height: none;
+    min-height: 0;
+    height: 100%;
+    align-items: stretch;
   }
 
-  .section-story .story-photo {
-    max-height: min(50svh, 100%);
+  .section-story .story-slideshow {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
   }
 
   .section-story .story-text-panel {
-    min-height: min(50svh, 28rem);
+    min-height: 0;
+    height: 100%;
     align-items: stretch;
   }
 
   .section-story .story-text-scroll {
     max-width: none;
-    max-height: 55svh;
+    max-height: 100%;
   }
 }
 
@@ -1705,7 +1756,7 @@ body:has(.hero.hero--media-ready) .nav {
 
 .footer-text {
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 3.2vw, 1.85rem);
+  font-size: clamp(1.85rem, 4.8vw + 0.35rem, 2.85rem);
   font-weight: 400;
   letter-spacing: normal;
   margin: 0 0 var(--space-xs);
