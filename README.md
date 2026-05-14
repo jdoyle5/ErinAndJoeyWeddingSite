@@ -9,11 +9,11 @@ A simple, elegant one-page wedding site. Easy to customize and host for free.
 - **Event Details** – Ceremony and reception (time, venue, address)
 - **RSVP** – Form placeholder (connect to Google Forms or your RSVP tool)
 - **Registry** – Links to your registries
-- **Footer** – Closing line and names
+- **Footer** – Closing video and sign-off
 
 ## Customize
 
-1. **Names and date** – Edit `index.html`: update “Your Name & Partner's Name”, the date line, and location in the hero and footer.
+1. **Names and date** – Edit `index.html`: update “Your Name & Partner's Name”, the date line, and location in the hero and footer copy as needed.
 2. **Our Story** – Replace the placeholder paragraphs in the “Our Story” section with your own text.
 3. **Event Details** – Update ceremony and reception times, venue names, and addresses.
 4. **RSVP** – Either link the button to an external RSVP form (Google Forms, Zola, etc.) or change the form `action` to your form endpoint. See `HOSTING.md` for options.

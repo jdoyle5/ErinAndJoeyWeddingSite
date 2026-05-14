@@ -118,3 +118,18 @@ The current RSVP section is a placeholder. To collect responses:
 | Vercel        | Yes   | project.vercel.app             | Yes            |
 
 Start with one of the free hosts to get a URL live, then add a custom domain if you want a “real” wedding URL.
+
+---
+
+## Footer background video (GitHub file size)
+
+GitHub blocks files **larger than 100 MB**. The full screen recording should stay **out of Git** (see `.gitignore`: `assets/footer-bg.mov`). The site uses a **compressed** `assets/footer-bg.m4v` in the repo.
+
+To re-export after changing the recording on your Mac:
+
+```bash
+/usr/bin/avconvert --source "/path/to/your/recording.mov" --preset PresetAppleM4VWiFi \
+  --output "/Users/josephdoyle/WeddingSite/assets/footer-bg.m4v" --replace --progress
+```
+
+For higher quality (larger file), try e.g. `PresetAppleM4V720pHD` or `PresetMediumQuality` (still keep the output under **100 MB** before committing).

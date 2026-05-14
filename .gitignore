@@ -12,3 +12,6 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# Large video source (GitHub rejects files ≥ 100 MB). Repo ships compressed assets/footer-bg.m4v instead.
+assets/footer-bg.mov
