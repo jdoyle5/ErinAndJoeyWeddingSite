@@ -125,11 +125,11 @@ Start with one of the free hosts to get a URL live, then add a custom domain if 
 
 GitHub blocks files **larger than 100 MB**. The full screen recording should stay **out of Git** (see `.gitignore`: `assets/footer-bg.mov`). The site uses a **compressed** `assets/footer-bg.m4v` in the repo.
 
-To re-export after changing the recording on your Mac:
+To re-export after changing the recording on your Mac (default: **720p**, good balance of quality vs. size; stay **under 100 MB** for GitHub):
 
 ```bash
-/usr/bin/avconvert --source "/path/to/your/recording.mov" --preset PresetAppleM4VWiFi \
+/usr/bin/avconvert --source "/path/to/your/recording.mov" --preset PresetAppleM4V720pHD \
   --output "/Users/josephdoyle/WeddingSite/assets/footer-bg.m4v" --replace --progress
 ```
 
-For higher quality (larger file), try e.g. `PresetAppleM4V720pHD` or `PresetMediumQuality` (still keep the output under **100 MB** before committing).
+Smallest file (more pixelated): `PresetAppleM4VWiFi`. Even sharper (larger): `PresetAppleM4V1080pHD` or `PresetMediumQuality` — check the output file size before committing.

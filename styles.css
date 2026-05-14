@@ -254,11 +254,12 @@ body:has(.hero.hero--media-ready) .nav {
   max-width: min(20rem, 55vw);
   text-decoration: none;
   color: var(--taupe);
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 3.2vw, 1.65rem);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.2;
   letter-spacing: normal;
+  text-transform: uppercase;
   white-space: nowrap;
   transition: color 0.2s;
 }
@@ -279,7 +280,7 @@ body:has(.hero.hero--media-ready) .nav {
   color: var(--taupe);
   text-decoration: none;
   font-weight: 400;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   letter-spacing: normal;
   text-transform: uppercase;
   transition: color 0.2s;
