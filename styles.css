@@ -412,6 +412,7 @@ body:has(.hero.hero--media-ready) .nav {
 /* Keep hero text invisible until video has a frame (see initHeroAwaitVideo in script.js) */
 .hero:not(.hero--media-ready) .hero-names,
 .hero:not(.hero--media-ready) .hero-date,
+.hero:not(.hero--media-ready) .hero-countdown,
 .hero:not(.hero--media-ready) .hero-scroll {
   animation: none !important;
   opacity: 0;
@@ -448,7 +449,7 @@ body:has(.hero.hero--media-ready) .nav {
   font-family: var(--font-hero-date);
   font-size: var(--font-display-heading-size);
   font-weight: 400;
-  letter-spacing: normal;
+  letter-spacing: -0.035em;
   color: var(--taupe);
   margin: 0 auto;
   line-height: 1.3;
@@ -457,11 +458,53 @@ body:has(.hero.hero--media-ready) .nav {
   box-sizing: border-box;
   /* Slight left shift without fighting the fade animation’s transform */
   padding-right: 0.85rem;
+  padding-bottom: var(--space-xl);
 }
 
 .hero.hero--media-ready .hero-date {
   opacity: 0;
   animation: heroFadeUp 2.2s cubic-bezier(0.33, 0.86, 0.32, 1) 0.65s forwards;
+}
+
+.hero-countdown {
+  width: min(100%, 34rem);
+  margin: var(--space-xl) auto 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.hero-countdown .countdown-values span,
+.hero-countdown .countdown-values strong {
+  color: var(--taupe);
+}
+
+.hero-countdown .countdown-values strong {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  letter-spacing: -0.09em;
+}
+
+.countdown-values {
+  margin: 0;
+  display: grid;
+}
+
+/* Hero countdown: compact columns, readable spacing */
+.hero-countdown .countdown-values {
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: center;
+  column-gap: 2rem;
+  row-gap: var(--space-xs);
+}
+
+.hero.hero--media-ready .hero-countdown {
+  opacity: 0;
+  animation: heroFadeUp 2s cubic-bezier(0.33, 0.86, 0.32, 1) 0.82s forwards;
 }
 
 .hero-scroll {
@@ -498,6 +541,7 @@ body:has(.hero.hero--media-ready) .nav {
 
   .hero-names,
   .hero-date,
+  .hero-countdown,
   .hero-scroll {
     animation: none !important;
     opacity: 1 !important;
@@ -507,7 +551,6 @@ body:has(.hero.hero--media-ready) .nav {
   .section-welcome .intro-heading,
   .section-welcome .intro-body,
   .section-welcome .intro-signoff,
-  .section-countdown .countdown-reveal,
   .section-story .story-section-title,
   .section-story .story-body p,
   .section-travel .travel-reveal,
@@ -540,24 +583,17 @@ body:has(.hero.hero--media-ready) .nav {
   margin: 0 0 var(--space-xl);
 }
 
-/* Welcome — default surface when not on coastal stage */
+/* Welcome — matches Our Story when coastal stage uses same texture */
 .section-welcome {
-  background: var(--white);
+  background: transparent;
+}
+
+.section-welcome.intro-countdown-stage {
+  background-color: transparent;
 }
 
 .section-welcome .container {
   max-width: 42rem;
-}
-
-/* Countdown strip — white band between hero and coastal welcome */
-.section-countdown {
-  background: var(--white);
-}
-
-.section-countdown .container {
-  max-width: 42rem;
-  display: flex;
-  justify-content: center;
 }
 
 .intro-countdown-stage {
@@ -566,10 +602,10 @@ body:has(.hero.hero--media-ready) .nav {
   flex-direction: column;
   align-items: stretch;
   background-image:
-    linear-gradient(rgba(18, 16, 15, 0.68), rgba(18, 16, 15, 0.68)),
-    url("assets/site-backdrop.png");
+    linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)),
+    url("assets/our-story-bg-texture.png");
   background-size: cover;
-  background-position: center, center bottom;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
@@ -595,16 +631,7 @@ body:has(.hero.hero--media-ready) .nav {
 }
 
 .intro-countdown-stage .welcome-inner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(8, 10, 12, 0.35) 0%,
-    rgba(8, 10, 12, 0.55) 100%
-  );
+  content: none;
 }
 
 .intro-countdown-stage .welcome-inner .container {
@@ -651,21 +678,7 @@ body:has(.hero.hero--media-ready) .nav {
   margin: 0;
 }
 
-.intro-countdown-stage .welcome-inner .intro-heading {
-  color: var(--white);
-  text-shadow:
-    0 1px 28px rgba(0, 0, 0, 0.55),
-    0 1px 3px rgba(0, 0, 0, 0.45);
-}
-
-.intro-countdown-stage .welcome-inner .intro-body,
-.intro-countdown-stage .welcome-inner .intro-signoff {
-  color: rgba(255, 255, 255, 0.93);
-  text-shadow:
-    0 1px 18px rgba(0, 0, 0, 0.5),
-    0 1px 2px rgba(0, 0, 0, 0.35);
-}
-
+/* Same colors as Our Story (.story-body p / .section-title) — default .intro-* rules apply */
 /* Countdown panel */
 .countdown-panel {
   width: 100%;
@@ -679,11 +692,12 @@ body:has(.hero.hero--media-ready) .nav {
   box-shadow: 0 2px 16px rgba(107, 101, 96, 0.06);
 }
 
-.countdown-values {
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-sm);
+.hero-countdown.countdown-panel {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .countdown-values span {
@@ -709,8 +723,10 @@ body:has(.hero.hero--media-ready) .nav {
 }
 
 @media (max-width: 35rem) {
-  .countdown-values {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .hero-countdown .countdown-values {
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 2rem;
+    row-gap: 0.35rem;
   }
 }
 
@@ -723,15 +739,17 @@ body:has(.hero.hero--media-ready) .nav {
   min-height: 100svh;
   height: 100svh;
   padding: 0;
+  background-color: #14161a;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)),
-    url("assets/our-story-bg-texture.png");
+    linear-gradient(rgba(20, 22, 26, 0.82), rgba(20, 22, 26, 0.82)),
+    url("assets/our-story-bg-slate.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
 }
 
+.section-story .story-section-title.section-title,
 .section-story .story-section-title {
   position: absolute;
   top: clamp(0.75rem, 2.2vh, 1.35rem);
@@ -740,6 +758,7 @@ body:has(.hero.hero--media-ready) .nav {
   z-index: 2;
   margin: 0;
   pointer-events: none;
+  color: var(--white);
 }
 
 .section-story .story-split {
@@ -755,7 +774,7 @@ body:has(.hero.hero--media-ready) .nav {
   justify-items: stretch;
   gap: var(--story-gutter);
   padding-inline: var(--story-gutter);
-  padding-top: clamp(4.25rem, 11vh, 6.5rem);
+  padding-top: calc(clamp(4.25rem, 11vh, 6.5rem) + var(--space-sm));
   padding-bottom: var(--story-gutter);
   box-sizing: border-box;
 }
@@ -767,7 +786,7 @@ body:has(.hero.hero--media-ready) .nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--story-gutter);
+  padding: var(--story-gutter) 0 var(--story-gutter) var(--story-gutter);
   box-sizing: border-box;
 }
 
@@ -813,7 +832,7 @@ body:has(.hero.hero--media-ready) .nav {
 }
 
 .section-story .story-photo-slide:focus-visible {
-  outline: 2px solid rgba(139, 133, 126, 0.65);
+  outline: 2px solid rgba(255, 255, 255, 0.65);
   outline-offset: 4px;
 }
 
@@ -823,29 +842,40 @@ body:has(.hero.hero--media-ready) .nav {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: var(--story-gutter);
+  align-items: center;
+  padding: var(--story-gutter) var(--story-gutter) var(--story-gutter) 0;
   box-sizing: border-box;
+  background: transparent;
+}
+
+/* Wraps scroll + bottom fade so the fade matches text width (incl. scrollbar gutter) */
+.section-story .story-text-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: min(100%, 34rem);
+  max-width: 100%;
 }
 
 .section-story .story-text-scroll {
   flex: 1;
   min-height: 0;
-  width: min(100%, 34rem);
-  max-width: 100%;
-  margin-inline: auto;
+  width: 100%;
   text-align: left;
   overflow-y: scroll;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: rgba(139, 133, 126, 0.45) rgba(139, 133, 126, 0.1);
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
   -webkit-overflow-scrolling: touch;
   padding-bottom: clamp(1.75rem, 4vh, 3rem);
   transition: box-shadow 0.25s ease;
+  background: transparent;
 }
 
 .section-story .story-text-scroll.story-text-scroll--at-end {
-  box-shadow: inset 0 -1px 0 rgba(139, 133, 126, 0.22);
+  box-shadow: none;
 }
 
 .section-story .story-text-scroll::-webkit-scrollbar {
@@ -853,17 +883,17 @@ body:has(.hero.hero--media-ready) .nav {
 }
 
 .section-story .story-text-scroll::-webkit-scrollbar-track {
-  background: rgba(139, 133, 126, 0.1);
+  background: transparent;
   border-radius: 5px;
 }
 
 .section-story .story-text-scroll::-webkit-scrollbar-thumb {
-  background: rgba(139, 133, 126, 0.38);
+  background: rgba(255, 255, 255, 0.32);
   border-radius: 5px;
 }
 
 .section-story .story-text-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 133, 126, 0.52);
+  background: rgba(255, 255, 255, 0.48);
 }
 
 .story-scroll-affordance {
@@ -878,12 +908,13 @@ body:has(.hero.hero--media-ready) .nav {
   justify-content: flex-end;
   height: clamp(4.25rem, 15vh, 7rem);
   padding-bottom: 0.35rem;
+  box-sizing: border-box;
+  /* Same width as .story-text-scroll — positioned inside .story-text-column */
   background: linear-gradient(
     to top,
-    #f8f5ee 0%,
-    rgba(248, 245, 238, 0.96) 38%,
-    rgba(248, 245, 238, 0.55) 68%,
-    rgba(248, 245, 238, 0) 100%
+    rgba(18, 20, 24, 0.9) 0%,
+    rgba(18, 20, 24, 0.5) 48%,
+    rgba(18, 20, 24, 0) 100%
   );
   transition: opacity 0.35s ease, visibility 0.35s ease;
 }
@@ -898,15 +929,19 @@ body:has(.hero.hero--media-ready) .nav {
   font-weight: 500;
   letter-spacing: normal;
   text-transform: none;
-  color: var(--taupe);
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow:
+    0 1px 8px rgba(0, 0, 0, 0.55),
+    0 0 2px rgba(0, 0, 0, 0.45);
 }
 
 .story-scroll-affordance-cue::after {
   content: "";
   width: 0.5rem;
   height: 0.5rem;
-  border-right: 2px solid var(--taupe);
-  border-bottom: 2px solid var(--taupe);
+  border-right: 2px solid rgba(255, 255, 255, 0.55);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
   transform: translateY(0) rotate(45deg);
   animation: storyScrollCueNudge 1.35s ease-in-out infinite;
 }
@@ -938,7 +973,7 @@ body:has(.hero.hero--media-ready) .nav {
   font-size: 18px;
   font-weight: 400;
   letter-spacing: normal;
-  color: var(--taupe-light);
+  color: rgba(255, 255, 255, 0.92);
   line-height: 1.8;
   margin: 0 0 var(--space-md);
 }
@@ -982,6 +1017,11 @@ body:has(.hero.hero--media-ready) .nav {
     align-items: stretch;
   }
 
+  .section-story .story-text-column {
+    width: 100%;
+    max-width: none;
+  }
+
   .section-story .story-text-scroll {
     max-width: none;
     max-height: 100%;
@@ -992,7 +1032,6 @@ body:has(.hero.hero--media-ready) .nav {
 .section-welcome .intro-heading.story-anim-ready:not(.story-in-view),
 .section-welcome .intro-body.story-anim-ready:not(.story-in-view),
 .section-welcome .intro-signoff.story-anim-ready:not(.story-in-view),
-.section-countdown .countdown-reveal.story-anim-ready:not(.story-in-view),
 .section-story .story-section-title.story-anim-ready:not(.story-in-view),
 .section-story .story-body p.story-anim-ready:not(.story-in-view),
 .section-travel .travel-reveal.story-anim-ready:not(.story-in-view),
@@ -1005,7 +1044,6 @@ body:has(.hero.hero--media-ready) .nav {
 .section-welcome .intro-heading.story-anim-ready,
 .section-welcome .intro-body.story-anim-ready,
 .section-welcome .intro-signoff.story-anim-ready,
-.section-countdown .countdown-reveal.story-anim-ready,
 .section-story .story-section-title.story-anim-ready,
 .section-story .story-body p.story-anim-ready,
 .section-travel .travel-reveal.story-anim-ready,
@@ -1019,7 +1057,6 @@ body:has(.hero.hero--media-ready) .nav {
 .section-welcome .intro-heading.story-in-view,
 .section-welcome .intro-body.story-in-view,
 .section-welcome .intro-signoff.story-in-view,
-.section-countdown .countdown-reveal.story-in-view,
 .section-story .story-section-title.story-in-view,
 .section-story .story-body p.story-in-view,
 .section-travel .travel-reveal.story-in-view,
@@ -1125,14 +1162,22 @@ body:has(.hero.hero--media-ready) .nav {
   margin-bottom: 0;
 }
 
-/* Dress Code */
+/* Dress Code — photo + dark scrim (same treatment as legacy coastal welcome) */
 .section-dress {
-  background: var(--white);
+  background-color: #121110;
+  background-image:
+    linear-gradient(rgba(18, 16, 15, 0.82), rgba(18, 16, 15, 0.82)),
+    url("assets/dress-code-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .section-dress .container {
   max-width: 42rem;
   text-align: left;
+  position: relative;
+  z-index: 1;
 }
 
 .dress-prose p {
@@ -1201,44 +1246,69 @@ body:has(.hero.hero--media-ready) .nav {
 }
 
 .dress-swatch--champagne {
-  background: #f4eadf;
+  background: #f7efe4;
 }
 
 .dress-swatch--blush {
-  /* Soft blush — desaturated, neutral rose-gray */
-  background: #d3cacd;
+  /* Soft blush — muted lavender-rose */
+  background: #d9d2d9;
 }
 
 .dress-swatch--taupe {
-  background: #baaea3;
+  background: #b9aba1;
 }
 
 .dress-swatch--sand {
-  background: #ebe3d9;
+  background: #efe8e1;
 }
 
 .dress-swatch--sage {
-  background: #bcc9bf;
+  background: #bcc8bc;
 }
 
 .dress-swatch--warm-gray {
-  background: #cfc9c3;
+  background: #ccc9c4;
 }
 
 .dress-swatch--olive {
-  background: #c3c4a8;
+  background: #c2c6a3;
 }
 
 .dress-swatch--slate {
-  background: #92a3b2;
+  background: #8c9eb0;
 }
 
-.dress-swatch-label {
+.section-dress .dress-swatch-label {
   font-family: var(--font-story-body);
   font-size: 0.82rem;
   font-weight: 400;
-  color: var(--taupe);
   line-height: 1.25;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.section-dress .section-title {
+  color: var(--white);
+  text-shadow:
+    0 1px 22px rgba(0, 0, 0, 0.55),
+    0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.section-dress .dress-prose p {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+.section-dress .dress-prose strong {
+  color: var(--white);
+}
+
+.section-dress .dress-temps-label {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.section-dress .dress-list {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 @media (max-width: 640px) {

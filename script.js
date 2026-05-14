@@ -230,16 +230,12 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 if (!prefersReducedMotion.matches) {
   const welcomeSection = document.getElementById('welcome');
-  const countdownSection = document.getElementById('countdown');
   const storySection = document.getElementById('story');
   const travelSection = document.getElementById('travel');
   const dressSection = document.getElementById('dress-code');
   const faqSection = document.getElementById('faq');
 
   const scrollRevealTargets = [
-    ...(countdownSection
-      ? [countdownSection.querySelector('.countdown-reveal')]
-      : []),
     ...(welcomeSection
       ? [
           welcomeSection.querySelector('.intro-heading'),
